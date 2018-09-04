@@ -5,10 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<h3></h3>
-<button type="button" onclick="alert('aaaaa')">{{abc}}</button>
+<h3>{{word}}</h3>
 <br>
+{% for i in definition %}
 <br>
-<button type="button" onclick="alert('aaaaa')">{{word2}}</button>
+<button type="button" onclick="alert('aaaaa')">{{i}}</button>
+<br>
+{% endfor %}
+
+<script>
+    function getAnswer(){
+    {%if
+</script>
 </body>
 </html>
