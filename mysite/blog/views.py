@@ -9,7 +9,7 @@ def post_list(request):
     words = df['word']
     word = random.choice(words)
 
-    meaning = df[words == word]['meaning']
+    meaning = df[words == word]['meaning'].values[0]
 
     # 다른 보기 만들기
     choices = random.sample(set(df[df['meaning'] != meaning]['meaning']), 3)
