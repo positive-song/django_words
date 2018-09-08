@@ -2,20 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>단어 맞추기</title>
 </head>
 <body>
 <h3>{{word}}</h3>
 <br>
-{% for i in definition %}
-<br>
-<button type="button" onclick="alert('aaaaa')">{{i}}</button>
-<br>
+{% for i in choices %}
+
+    {% if i == definition %}
+        <button type="button" onclick="window.location.reload()">{{i}}</button>
+        <br>
+        <br>
+    {% else %}
+        <button type="button" onclick="alert('틀렸습니다요!')">{{i}}</button>
+        <br>
+        <br>
+    {% endif %}
+
 {% endfor %}
 
-<script>
-    function getAnswer(){
-    {%if
-</script>
 </body>
 </html>

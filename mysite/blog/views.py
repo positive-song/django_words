@@ -10,13 +10,12 @@ def post_list(request):
 
     # 단어 & 뜻 선택
     word = random.choice(words)
+
     meaning = df[words == word]['meaning'].values[0]
 
     # 다른 보기 만들기
-    other = random.sample(set(df[df['meaning'] != meaning]['meaning']), 3)
+    choices = random.sample(set(df[df['meaning'] != meaning]['meaning']), 3)
+    choices.append(meaning)
+    random.shuffle(choices)
 
-    # 진짜 뜻을 추가
-    other.append(meaning)
-    random.shuffle(other)
-
-    return render(request, 'blog/post_list.html', {'word': word, 'definition': other, 'correct': meaning})
+    return render(request, 'blog/post_list.html', {'word': word, 'definition': meaning, 'choices': choices})
