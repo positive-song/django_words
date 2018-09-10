@@ -14,6 +14,8 @@ class AnswerSheet:
 def post_list(request):
     df = pd.read_csv('words.csv', encoding='cp949')
     words = df['word']
+
+    # 단어 & 뜻 선택
     word = random.choice(words)
 
 
