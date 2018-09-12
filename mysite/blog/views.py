@@ -18,10 +18,14 @@ def post_list(request):
     # 단어 & 뜻 선택
     word = random.choice(words)
 
-
-    ## 중복되면 넘어가도록 설정해야함
-
+    # 중복되면 넘어가도록 설정해야함
     answers = AnswerSheet()
+    if word in answers.word_list:
+        while word in answers.word_list:
+            word = random.choice(words)
+            if word not in answers.word_list:
+                break
+
     answers.get_words(word)
 
     meaning = df[words == word]['meaning'].values[0]
