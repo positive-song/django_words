@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import pandas as pd
 import random
+import csv
+from django.views.decorators.csrf import csrf_protect
 
 
 class AnswerSheet:
@@ -11,6 +13,7 @@ class AnswerSheet:
 
 
 # Create your views here.
+@csrf_protect
 def post_list(request):
     df = pd.read_csv('words.csv', encoding='cp949')
     words = df['word']
@@ -20,6 +23,8 @@ def post_list(request):
 
     # 중복되면 넘어가도록 설정해야함
     answers = AnswerSheet()
+    if len(answers.word_list) == len(words):
+        return render(request, 'blog/finish.html')
     if word in answers.word_list:
         while word in answers.word_list:
             word = random.choice(words)
@@ -34,5 +39,14 @@ def post_list(request):
     choices = random.sample(set(df[df['meaning'] != meaning]['meaning']), 3)
     choices.append(meaning)
     random.shuffle(choices)
+
+
+    wrong = []
+    if request.method == 'POST':
+        print(word)
+        wrong.append(word)
+        with open('wrong_words.csv', 'wb') as f:
+            writer = csv.writer(f)
+            writer.writerows(wrong)
 
     return render(request, 'blog/post_list.html', {'word': word, 'definition': meaning, 'choices': choices})

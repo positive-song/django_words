@@ -14,9 +14,12 @@
         <br>
         <br>
     {% else %}
-        <button type="button" onclick="alert('틀렸습니다요!')">{{i}}</button>
+        <form action="" method="post">
+                <button name="foo" value="upvote" onclick="alert('틀렸습니다요!')">{{i}}</button>
+
         <br>
         <br>
+        </form>
     {% endif %}
 
 {% endfor %}
