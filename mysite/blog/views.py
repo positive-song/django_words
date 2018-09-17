@@ -7,9 +7,13 @@ from django.views.decorators.csrf import csrf_protect
 
 class AnswerSheet:
     word_list = []
+    wrong_list = []
 
     def get_words(self, word):
         self.word_list.append(word)
+
+    def save_wrong_words(self, word):
+        self.wrong_list.append(word)
 
 
 # Create your views here.
@@ -40,13 +44,11 @@ def post_list(request):
     choices.append(meaning)
     random.shuffle(choices)
 
-
-    wrong = []
+    # 틀리면 리스트로 저장하기
     if request.method == 'POST':
-        print(word)
-        wrong.append(word)
+        answers.save_wrong_words(word)
         with open('wrong_words.csv', 'wb') as f:
             writer = csv.writer(f)
-            writer.writerows(wrong)
+            writer.writerows([answers.wrong_list])
 
     return render(request, 'blog/post_list.html', {'word': word, 'definition': meaning, 'choices': choices})
