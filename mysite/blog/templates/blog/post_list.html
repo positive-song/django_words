@@ -16,7 +16,7 @@
     {% else %}
         <form action="" method="post">
         {% csrf_token %}
-                <button name="foo" value="upvote" onclick="alert('틀렸습니다요!')">{{i}}</button>
+                <button type="submit" name="wrong_choice" value="false" onclick="alert('틀렸습니다!')">{{i}}</button>
 
         <br>
         <br>

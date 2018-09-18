@@ -45,10 +45,25 @@ def post_list(request):
     random.shuffle(choices)
 
     # 틀리면 리스트로 저장하기
-    if request.method == 'POST':
-        answers.save_wrong_words(word)
-        with open('wrong_words.csv', 'wb') as f:
-            writer = csv.writer(f)
-            writer.writerows([answers.wrong_list])
+
+    # if 'wrong_choice' in request.POST and request.method == 'POST':
+    #     print('==========================================')
+    #     answers.save_wrong_words(word)
+    #     with open('wrong_words.csv', 'w', newline='') as f:
+    #         writer = csv.writer(f)
+    #         for i in answers.wrong_list:
+    #             writer.writerow([i])
+        # return render(request, 'blog/post_list.html', {'word': word, 'definition': meaning, 'choices': choices})
 
     return render(request, 'blog/post_list.html', {'word': word, 'definition': meaning, 'choices': choices})
+
+
+def post_results(request):
+    answers = AnswerSheet()
+    if 'wrong_choice' in request.POST and request.method == 'POST':
+        print('==========================================')
+        answers.save_wrong_words('abcde')
+        with open('wrong_words.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            for i in answers.wrong_list:
+                writer.writerow([i])
